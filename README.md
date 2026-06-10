@@ -22,7 +22,7 @@ Since the project is built with vanilla HTML, CSS, and JavaScript, you don't nee
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Dopa.git
+   git clone https://github.com/HedlanQ/Dopa.git
    cd Dopa
    ```
 
