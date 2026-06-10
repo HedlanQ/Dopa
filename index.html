@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dopa. — Gamified Productivity</title>
+  <meta name="description" content="A gamified productivity tracker with XP, streaks, and habits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ TOP HEADER BAR ═══════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="brand-dot"></span>
+      <h1 class="brand-name">dopa.</h1>
+    </div>
+
+    <div class="topbar-center">
+      <div class="xp-bar-wrapper">
+        <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%;"></div>
+      </div>
+      <div class="topbar-xp-labels">
+        <span id="xp-current">0 XP</span>
+        <span id="xp-needed">/ 100 XP to next level</span>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="topbar-level">
+        <span class="topbar-level-label">LVL</span>
+        <span class="topbar-level-num" id="level-display">1</span>
+      </div>
+      <div class="topbar-streak">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 12c2-2.96 0-7-1.8-9-.2.5-.3 1.1-.2 1.7.1.7.4 1.3.8 1.9.7 1.1.9 2.2.5 3.3-.4 1.1-1.4 1.8-2.5 1.8-1 0-1.8-.5-2.4-1.2-.6-.7-.8-1.7-.5-2.7-1.8 1.8-2.9 4.3-2.9 7.1a7 7 0 1 0 14 0c0-2.1-.6-4.1-1.7-5.8-.3 1-1.1 1.8-2.1 2.2-1 .4-2.1.3-2.7-.8z"/></svg>
+        <span id="longest-streak-display">0</span>
+        <span class="topbar-streak-unit">day streak</span>
+      </div>
+      <div class="topbar-profile">
+        <div class="topbar-avatar" id="topbar-avatar">U</div>
+        <input type="text" id="username-input" class="topbar-username" value="User" maxlength="20" title="Click to edit username">
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════ MAIN WORKSPACE ═══════════════════════════════ -->
+  <div class="workspace">
+
+    <!-- ─────────────── LEFT: TODO PANEL ─────────────── -->
+    <aside class="todo-panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <span class="panel-eyebrow">Focus</span>
+          <h2 class="panel-title">To-Do</h2>
+        </div>
+        <div class="panel-counts">
+          <span id="active-tasks-count" class="count-pill active-pill">0</span>
+          <span class="count-sep">/</span>
+          <span id="total-tasks-count" class="count-pill">0</span>
+        </div>
+      </div>
+
+      <!-- Add Task Form -->
+      <form id="todo-form" class="todo-form">
+        <input type="text" id="todo-title" class="todo-input" placeholder="e.g. drink water hard, gym easy…" required autocomplete="off">
+        <div id="todo-parse-hint" class="todo-hint"></div>
+        <label class="toggle-label" title="Repeat daily">
+          <input type="checkbox" id="todo-recurring">
+          <span class="toggle-track">
+            <span class="toggle-thumb"></span>
+          </span>
+          <span class="toggle-text">Repeat daily</span>
+        </label>
+        <!-- Hidden difficulty — populated by smart parser -->
+        <select id="todo-difficulty" style="display:none">
+          <option value="easy">easy</option>
+          <option value="medium" selected>medium</option>
+          <option value="hard">hard</option>
+        </select>
+      </form>
+
+      <!-- Active Tasks -->
+      <div class="todo-section-label">Active <span class="todo-section-count" id="active-tasks-count-2">0</span></div>
+      <div class="todo-list" id="active-todo-list"></div>
+
+      <!-- Completed Tasks -->
+      <div class="todo-section-label muted">Completed <span class="todo-section-count" id="completed-tasks-count">0</span></div>
+      <div class="todo-list todo-list--completed" id="completed-todo-list"></div>
+    </aside>
+
+    <!-- ─────────────── RIGHT: HABITS CALENDAR ─────────────── -->
+    <section class="habits-panel">
+      <div class="habits-panel-header">
+        <div class="panel-title-group">
+          <span class="panel-eyebrow">Consistency</span>
+          <h2 class="panel-title">Habits</h2>
+        </div>
+        <div class="habits-month-nav">
+          <button class="month-nav-btn" id="month-prev">&#8249;</button>
+          <span class="month-label" id="habits-month-label">June 2026</span>
+          <button class="month-nav-btn" id="month-next">&#8250;</button>
+        </div>
+        <!-- Add Habit inline form -->
+        <form id="habit-form" class="habit-inline-form">
+          <input type="text" id="habit-name" class="habit-input" placeholder="New habit…" required autocomplete="off">
+          <select id="habit-difficulty" class="todo-select habit-diff-select">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <button type="submit" class="btn-add-task">+ Add</button>
+        </form>
+      </div>
+
+      <!-- Habits Calendar Grid (Excel-like) -->
+      <div class="habits-calendar-wrapper">
+        <div class="habits-calendar" id="habits-calendar">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /workspace -->
+
+  <!-- ═══════════════════════════════ BOTTOM: ACTIVITY GRAPH + QUOTES ═══════════════════════════════ -->
+  <footer class="activity-footer">
+
+    <!-- Left: GitHub-style activity graph -->
+    <div class="activity-left">
+      <div class="activity-footer-header">
+        <div class="activity-footer-title">
+          <span class="panel-eyebrow">History</span>
+          <h2 class="panel-title">Activity · Past 365 Days</h2>
+        </div>
+        <div class="graph-legend">
+          <span class="legend-text">Less</span>
+          <span class="legend-cell empty"></span>
+          <span class="legend-cell light"></span>
+          <span class="legend-cell medium"></span>
+          <span class="legend-cell dark"></span>
+          <span class="legend-text">More</span>
+        </div>
+      </div>
+      <div class="activity-graph-wrapper">
+        <div class="graph-months-row" id="graph-months"></div>
+        <div class="graph-body">
+          <div class="graph-days-labels">
+            <span>Mon</span>
+            <span>Wed</span>
+            <span>Fri</span>
+          </div>
+          <div class="activity-grid" id="activity-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Motivational quotes -->
+    <div class="activity-right">
+      <div class="quote-decoration">&#8220;</div>
+      <div class="quote-content" id="quote-content">
+        <p class="quote-text" id="quote-text">Loading quote…</p>
+        <span class="quote-author" id="quote-author"></span>
+      </div>
+      <div class="quote-dots" id="quote-dots"></div>
+    </div>
+
+  </footer>
+
+  <!-- ═══════════════════════════════ LEVEL UP MODAL ═══════════════════════════════ -->
+  <div class="modal-overlay" id="level-up-modal">
+    <div class="modal-content">
+      <h2 class="level-up-title">LEVEL UP!</h2>
+      <div class="level-up-circle">
+        <span class="level-up-num" id="modal-level-num">2</span>
+      </div>
+      <p class="level-up-msg">You've reached the next tier of focus.</p>
+      <div class="unlocked-badge-announcement" id="modal-badge-announcement" style="display: none;">
+        <span class="announcement-label">New Badge Unlocked</span>
+        <div class="badge-showcase" id="modal-badge-showcase"></div>
+      </div>
+      <button class="btn btn-primary btn-modal-close" id="modal-close-btn">Continue</button>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="graph-tooltip" id="graph-tooltip"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
