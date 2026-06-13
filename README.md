@@ -10,9 +10,6 @@
 ### Dashboard Layout
 ![dopa. Dashboard](images/dashboard.png)
 
-### Features in Action
-![dopa. Interactive Demo](images/demo.webp)
-
 ---
 
 ## ✨ Features
