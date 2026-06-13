@@ -1,0 +1,23 @@
+[33mcommit 330dfba8a6d1389ed2ef8b31375d763b10f3abe8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: HedlanQ <queddenghedlan@gmail.com>
+Date:   Wed Jun 10 22:51:27 2026 +0800
+
+    fixed the commit
+
+[33mcommit 34f908e3a16380ca071914bf72c61e38ea9c747c[m
+Author: HedlanQ <queddenghedlan@gmail.com>
+Date:   Wed Jun 10 22:36:25 2026 +0800
+
+    refactor: organize folder structure into css/ and js/ directories
+
+[33mcommit ef26b53790069fa2ca503f369f865e81d4eafc30[m
+Author: HedlanQ <queddenghedlan@gmail.com>
+Date:   Wed Jun 10 22:32:21 2026 +0800
+
+    docs: add Dopa project README
+
+[33mcommit 89680785f96c85e7f1c61d3d75a3c00548079b58[m
+Author: HedlanQ <queddenghedlan@gmail.com>
+Date:   Wed Jun 10 22:26:57 2026 +0800
+
+    Initial commit: Dopa Gamified Productivity Tracker

@@ -5,6 +5,16 @@
 
 ---
 
+## 📸 Preview
+
+### Dashboard Layout
+![dopa. Dashboard](images/dashboard.png)
+
+### Features in Action
+![dopa. Interactive Demo](images/demo.webp)
+
+---
+
 ## ✨ Features
 
 - **🎮 RPG Character Progression**: Earn XP for completing habits and tasks. Level up your character and watch your XP bar grow.
